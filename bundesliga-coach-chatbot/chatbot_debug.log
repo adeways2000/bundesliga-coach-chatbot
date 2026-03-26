@@ -1,0 +1,65 @@
+2026-03-26 18:16:08 [INFO] bundesliga_chatbot: Loading current Bundesliga club data from Wikidata...
+2026-03-26 18:16:08 [DEBUG] bundesliga_chatbot: Sending SPARQL query to Wikidata:
+SELECT ?club ?clubLabel ?city ?cityLabel ?coach ?coachLabel ?coachArticle WHERE {
+  ?club wdt:P118 wd:Q82595 .       # club's league is Bundesliga
+  ?club wdt:P286 ?coach .           # club has a head coach
+  ?club wdt:P159 ?city .            # club's headquarters location (city)
+  OPTIONAL {
+    ?c
+2026-03-26 18:16:10 [DEBUG] bundesliga_chatbot: Wikidata returned 19 result(s).
+2026-03-26 18:16:10 [DEBUG] bundesliga_chatbot: Skipping excluded entity: Q162449
+2026-03-26 18:16:10 [DEBUG] bundesliga_chatbot: Skipping excluded entity: Q28854979
+2026-03-26 18:16:10 [DEBUG] bundesliga_chatbot: Parsed 17 team entries from Wikidata.
+2026-03-26 18:16:10 [INFO] bundesliga_chatbot: Loaded 17 teams across 16 cities.
+2026-03-26 18:16:10 [DEBUG] bundesliga_chatbot: City map keys: ['dortmund', 'munich', 'freiburg im breisgau', 'wolfsburg', 'bremen', 'mönchengladbach', 'leipzig', 'sinsheim', 'stuttgart', 'hamburg', 'heidenheim an der brenz', 'frankfurt', 'mainz', 'berlin', 'leverkusen', 'cologne']
+2026-03-26 18:16:10 [DEBUG] bundesliga_chatbot: Alias map: {'münchen': ('munich', None), 'munchen': ('munich', None), 'munich': ('munich', None), 'freiburg': ('freiburg im breisgau', None), 'gladbach': ('mönchengladbach', None), 'mönchengladbach': ('mönchengladbach', None), 'monchengladbach': ('mönchengladbach', None), 'hoffenheim': ('sinsheim', None), 'heidenheim': ('heidenheim an der brenz', None), 'pauli': ('hamburg', 'fc st. pauli'), 'st. pauli': ('hamburg', 'fc st. pauli'), 'st pauli': ('hamburg', 'fc st. pauli'), 'köln': ('cologne', None), 'koln': ('cologne', None), 'cologne': ('cologne', None)}
+2026-03-26 18:16:23 [INFO] bundesliga_chatbot: Processing question: 'Who is coaching Berlin?'
+2026-03-26 18:16:23 [DEBUG] bundesliga_chatbot: Extracted city 'Berlin' from question using pattern: (?i)who\s+is\s+coaching\s+(.+)
+2026-03-26 18:16:23 [INFO] bundesliga_chatbot: Extracted search term: 'Berlin'
+2026-03-26 18:16:23 [DEBUG] bundesliga_chatbot: Looking up clubs for query term: 'berlin'
+2026-03-26 18:16:23 [DEBUG] bundesliga_chatbot: Direct city match found for 'berlin'.
+2026-03-26 18:16:23 [INFO] bundesliga_chatbot: Matched club: 1. FC Union Berlin (QID: Q141971, City: Berlin)
+2026-03-26 18:16:23 [INFO] bundesliga_chatbot: Fetching current coach for 1. FC Union Berlin from Wikidata...
+2026-03-26 18:16:23 [DEBUG] bundesliga_chatbot: Sending SPARQL query to Wikidata:
+SELECT ?coach ?coachLabel ?coachArticle WHERE {
+  wd:Q141971 wdt:P286 ?coach .
+  OPTIONAL {
+    ?coachArticle schema:about ?coach ;
+                  schema:isPartOf <https://en.wikipedia.org/> .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de" . }
+}
+2026-03-26 18:16:23 [DEBUG] bundesliga_chatbot: Wikidata returned 1 result(s).
+2026-03-26 18:16:23 [INFO] bundesliga_chatbot: Current coach: Steffen Baumgart (Wikipedia: 'Steffen_Baumgart')
+2026-03-26 18:16:23 [DEBUG] bundesliga_chatbot: Coach data from Wikidata: QID=Q2338559, Name=Steffen Baumgart, WikiTitle=Steffen_Baumgart
+2026-03-26 18:16:23 [INFO] bundesliga_chatbot: Fetching Wikipedia biography for Steffen Baumgart...
+2026-03-26 18:16:23 [DEBUG] bundesliga_chatbot: Fetching Wikipedia intro for article: 'Steffen_Baumgart'
+2026-03-26 18:16:24 [DEBUG] bundesliga_chatbot: Retrieved Wikipedia intro for 'Steffen_Baumgart' (140 characters).
+2026-03-26 18:16:24 [INFO] bundesliga_chatbot: Retrieved biography for Steffen Baumgart (140 characters).
+2026-03-26 18:16:24 [DEBUG] bundesliga_chatbot: Biography excerpt: Steffen Baumgart (born 5 January 1972) is a German football former player and manager who is the head coach of Bundesliga club Union Berlin....
+2026-03-26 18:16:24 [DEBUG] bundesliga_chatbot: Constructed LLM prompt (899 characters).
+2026-03-26 18:16:57 [INFO] bundesliga_chatbot: Processing question: 'What about munich?'
+2026-03-26 18:16:57 [DEBUG] bundesliga_chatbot: Extracted city 'munich' from question using pattern: (?i)what\s+about\s+(.+)
+2026-03-26 18:16:57 [INFO] bundesliga_chatbot: Extracted search term: 'munich'
+2026-03-26 18:16:57 [DEBUG] bundesliga_chatbot: Looking up clubs for query term: 'munich'
+2026-03-26 18:16:57 [DEBUG] bundesliga_chatbot: Direct city match found for 'munich'.
+2026-03-26 18:16:57 [INFO] bundesliga_chatbot: Matched club: FC Bayern Munich (QID: Q15789, City: Munich)
+2026-03-26 18:16:57 [INFO] bundesliga_chatbot: Fetching current coach for FC Bayern Munich from Wikidata...
+2026-03-26 18:16:57 [DEBUG] bundesliga_chatbot: Sending SPARQL query to Wikidata:
+SELECT ?coach ?coachLabel ?coachArticle WHERE {
+  wd:Q15789 wdt:P286 ?coach .
+  OPTIONAL {
+    ?coachArticle schema:about ?coach ;
+                  schema:isPartOf <https://en.wikipedia.org/> .
+  }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de" . }
+}
+2026-03-26 18:16:59 [DEBUG] bundesliga_chatbot: Wikidata returned 1 result(s).
+2026-03-26 18:16:59 [INFO] bundesliga_chatbot: Current coach: Vincent Kompany (Wikipedia: 'Vincent_Kompany')
+2026-03-26 18:16:59 [DEBUG] bundesliga_chatbot: Coach data from Wikidata: QID=Q201381, Name=Vincent Kompany, WikiTitle=Vincent_Kompany
+2026-03-26 18:16:59 [INFO] bundesliga_chatbot: Fetching Wikipedia biography for Vincent Kompany...
+2026-03-26 18:16:59 [DEBUG] bundesliga_chatbot: Fetching Wikipedia intro for article: 'Vincent_Kompany'
+2026-03-26 18:16:59 [DEBUG] bundesliga_chatbot: Retrieved Wikipedia intro for 'Vincent_Kompany' (2160 characters).
+2026-03-26 18:16:59 [INFO] bundesliga_chatbot: Retrieved biography for Vincent Kompany (2160 characters).
+2026-03-26 18:16:59 [DEBUG] bundesliga_chatbot: Biography excerpt: Vincent Jean Mpoy Kompany (French pronunciation: [vɛ̃sɑ̃ kɔ̃pani]; born 10 April 1986) is a Belgian professional football manager and former player who played as a centre-back. He is the head coach of...
+2026-03-26 18:16:59 [DEBUG] bundesliga_chatbot: Constructed LLM prompt (2910 characters).
